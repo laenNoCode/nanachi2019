@@ -1,0 +1,3 @@
+class gameElement{
+    constructor(path)
+}
