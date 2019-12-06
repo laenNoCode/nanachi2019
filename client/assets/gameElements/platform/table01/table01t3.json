@@ -1,0 +1,12 @@
+{
+    "baseWidth": 200,
+    "baseHeight":100,
+    "gameScaleX":1.0,
+    "gameScaleY":2.0,
+    "animations":{
+        "normal":{
+            "images":["/table01.png"],
+            "loop":true
+        }
+    }
+}

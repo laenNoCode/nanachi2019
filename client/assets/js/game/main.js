@@ -1,5 +1,5 @@
 
-let imports = ["/assets/js/game/gameElement.js","/assets/js/game/GameAnimation.js","/assets/js/game/mainCharacter.js","/assets/js/game/Ground.js"]
+let imports = ["/assets/js/game/gameElement.js","/assets/js/game/GameAnimation.js","/assets/js/game/mainCharacter.js","/assets/js/game/Ground.js","/assets/js/game/GroundHandler.js"]
 let countImported = 0;
 let allLoadedCallback = function () {};
 function　loadCallback(){
@@ -26,6 +26,7 @@ class Game{
         this.height = height;
         this.speed = speed;
         this.canvas = canvas;
+        this.groundHandler = new GroundHandler("/assets/GameElements/platform/platforms.json", -speed, width, height,console.log);
         this.fps = fps; 
         this.context = canvas.getContext('2d');
         this.jumping=false;
@@ -70,13 +71,16 @@ class Game{
         })
     }
     update() {
-        console.log(this.canvas.height)
+        this.groundHandler.update();
         this.character.update(this.canvas.height);
+        this.groundHandler.update();
     }
     draw(){
         this.context.fillStyle='#ffff00ff';
+        this.groundHandler.draw(this.context);
         this.context.fillRect(0,0,this.canvas.width, this.canvas.height,1);
         this.character.draw(this.context);
+        this.groundHandler.draw(this.context);
     }
     onEvent(event){
 
@@ -91,15 +95,12 @@ class Game{
 }
 
 function  allLoaded() {
-    console.log('load')
     let games = document.getElementsByClassName('game');
     for (let i = 0; i < games.length; ++i){
         let canvas = games[i];
-        console.log(canvas);
-        canvas.game = new Game(900,600,10,canvas,4);
+        canvas.game = new Game(900,600,10,canvas,20);
         canvas.game.start();
-        canvas.game.character = new MainCharacter("/assets/gameElements/mainCharacter/mainCharacter.json", ()=>{
-            console.log(canvas.game.character);
+        canvas.game.character = new MainCharacter("/assets/gameElements/mainCharacter/mainCharacter.json",canvas.game.canvas.height, ()=>{
         });
     }
     

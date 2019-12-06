@@ -1,5 +1,5 @@
 class MainCharacter extends GameElement{
-    constructor(path, readyCallback){
+    constructor(path, heigthCanvas, readyCallback){
         super(path,()=>{    
             this.shooting = false;
             this.jumpingSpeed = this.json.jumpingSpeed;
@@ -7,7 +7,9 @@ class MainCharacter extends GameElement{
             this.reloadTime = this.json.reloadTime;
             this.reload = this.reloadTime
             this.currentPlatform = null;
-            this.y = heigthCanvas - heigthElem;;
+            this.heigthCanvas = heigthCanvas;
+            this.heigthCharac = this.currentAnimation.imgHeight;
+            this.y = this.heigthCanvas - this.heigthCharac - 30;
             readyCallback();
         });
     }
@@ -20,7 +22,6 @@ class MainCharacter extends GameElement{
             this.reload = this.reloadTime;
         }
         let touching = (this.groundDistance(height,platforms) <= this.sy);
-        console.log(this.groundDistance(height,platforms));
         if(this.currentAnimation.getName() == "shooting"){
             
             this.sy = 0;

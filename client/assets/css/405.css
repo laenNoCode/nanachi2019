@@ -1,0 +1,54 @@
+video {
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /*filter:opacity(60%);*/
+  }
+  
+  .container{
+      width:100vw;
+      height:100vh;
+      display: table-cell;
+      vertical-align: middle;
+  }
+  
+  .button {
+    background-color: rgb(223, 10, 10); /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  
+  .overlay{
+    
+    display: none; /* Hidden by default */
+    /*width: 100%; /* Full width (cover the whole page) */
+    /*height: 100%; /* Full height (cover the whole page) */
+    /*top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;*/
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+  }
+  
+  
+  #overlay {
+    position: relative; /* Sit on top of the page content */
+    vertical-align: middle;
+    margin: auto;
+    width: 8em;
+    font-size: 32px;
+    border-radius: 12px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    background-color: rgba(248, 15, 15, 0.65); /* Black background with opacity */
+  }

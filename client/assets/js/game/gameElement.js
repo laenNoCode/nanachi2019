@@ -17,7 +17,7 @@ class GameElement{
         this.sy = 0;
         this.ax = 0;
         this.ay = 0;
-
+        
         let cuttedPath = path.split('/')
         cuttedPath.splice(-1,1)
         let cutPath = cuttedPath.join('/')
@@ -60,7 +60,6 @@ class GameElement{
         let images = [...paths]
         for (let i in paths)
         {
-            console.log(basePath + paths[i])
             let img = await loadImage(basePath + paths[i]);
             images[i] = img;
             
