@@ -1,3 +1,25 @@
+
+let imports = ["/assets/js/game/gameElement.js","/assets/js/game/GameAnimation.js","/assets/js/game/mainCharacter.js","/assets/js/game/Ground.js"]
+let countImported = 0;
+let allLoadedCallback = function () {};
+function　loadCallback(){
+    ++countImported;
+    if (countImported == imports.length){
+        allLoadedCallback();
+    }
+}
+function importScript(name){
+    fetch(name).then((data)=>{
+        data.text().then((text) =>{
+            setTimeout(text+"\nloadCallback();", 1);
+        })
+    })
+}
+
+for (let script in imports){
+    importScript(imports[script]);
+}
+
 class Game{
     constructor(width, height, speed, canvas, fps=1) {
         this.width = width;
@@ -15,44 +37,46 @@ class Game{
     init(){
         window.addEventListener('keydown', (event)=>{
             if (event.key == ' '){
-                this.jumping = true;
+                this.character.jumping = true;
             }
             if (event.key == 'Control'){
-                this.shooting = true;
+                this.character.shooting = true;
             }
         })
         window.addEventListener('keyup', (event)=>{
             if (event.key == ' '){
-                this.jumping = false;
+                this.character.jumping = false;
             }
             if (event.key == 'Control'){
-                this.shooting = false;
+                this.character.shooting = false;
             }
         })
 
         window.addEventListener('mousedown', (event)=>{
             if (event.x < this.canvas.width / 2){
-                this.jumping = true;
+                this.character.jumping = true;
             }
             else{
-                this.shooting = true;
+                this.character.shooting = true;
             }
         })
-        window.addEventListener('keyup', (event)=>{
+        window.addEventListener('mouseup', (event)=>{
             if (event.x < this.canvas.width / 2){
-                this.jumping = false;
+                this.character.jumping = false;
             }
             else{
-                this.shooting = false;
+                this.character.shooting = false;
             }
         })
     }
     update() {
-        console.log('update');
+        console.log(this.canvas.height)
+        this.character.update(this.canvas.height);
     }
     draw(){
         this.context.fillStyle='#ffff00ff';
         this.context.fillRect(0,0,this.canvas.width, this.canvas.height,1);
+        this.character.draw(this.context);
     }
     onEvent(event){
 
@@ -66,13 +90,27 @@ class Game{
     }
 }
 
-window.addEventListener('load',() => {
+function  allLoaded() {
     console.log('load')
     let games = document.getElementsByClassName('game');
     for (let i = 0; i < games.length; ++i){
         let canvas = games[i];
         console.log(canvas);
-        canvas.game = new Game(900,600,1,canvas);
+        canvas.game = new Game(900,600,10,canvas,4);
         canvas.game.start();
+        canvas.game.character = new MainCharacter("/assets/gameElements/mainCharacter/mainCharacter.json", ()=>{
+            console.log(canvas.game.character);
+        });
     }
+    
+}
+
+window.addEventListener('load',() => {
+    if (countImported == imports.length){
+        allLoaded();
+    }
+    else{
+        allLoadedCallback = allLoaded;
+    }
+
 })

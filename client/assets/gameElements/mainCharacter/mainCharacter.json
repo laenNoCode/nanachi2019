@@ -1,0 +1,27 @@
+{
+    "baseWidth": 27,
+    "baseHeight":30,
+    "gameScaleX":2.0,
+    "gameScaleY":2.0,
+    "gravity":1.0,
+    "jumpingSpeed":-10,
+    "reloadTime":7,
+    "animations":{
+        "running":{
+            "images":["/running_frame1_colored.png","/running_frame2_colored.png","/running_frame3_colored.png","/running_frame4_colored.png"],
+            "loop":true
+        },
+        "jumping":{
+            "images":["/jumping_frame0_colored.png","/jumping_frame1_colored.png"],
+            "loop":false
+        },
+        "shooting":{
+            "images":["/throwing_frame1_colored.png","/throwing_frame2_colored.png"],
+            "loop":false
+        },
+        "dying"  :{
+            "images":[],
+            "loop":true
+        } 
+    }
+}
